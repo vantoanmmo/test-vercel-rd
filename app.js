@@ -1,11 +1,21 @@
 import express from 'express';
 import fetch from 'node-fetch';
 const app = express();
-const port = 3000;  // Bạn có thể chọn bất kỳ cổng nào không bị xung đột
+const port = process.env.PORT || 3000;
+
 
 app.get('/', (req, res) => {
   res.send(`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Welcome</title><style>body {font-family: 'Arial', sans-serif;background-color: #f4f4f9;margin: 0;padding: 0;display: flex;justify-content: center;align-items: center;height: 100vh;color: #333;}h1 {font-size: 48px;margin: 0;}p {font-size: 24px;color: #555;}.container {text-align: center;box-shadow: 0 4px 8px rgba(0,0,0,0.1);padding: 50px;background: white;border-radius: 10px;}</style></head><body><div class="container"><h1>Hello World!</h1><p>Every mile starts with the first steps</p><p style="font-size:small">Mr. T</p></div></body></html>`);
 });
+
+app.get('/readiness_check', (req, res) => {
+  res.status(200).send('OK');
+});
+
+app.get('/liveness_check', (req, res) => {
+  res.status(200).send('OK');
+});
+
 
 app.get('/:code', async (req, res) => {
     const referer = req.headers.referer || '';

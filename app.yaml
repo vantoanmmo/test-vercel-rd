@@ -1,4 +1,26 @@
-runtime: nodejs14
+runtime: nodejs18
+env: standard
+instance_class: F1  # Chọn class thể hiện phù hợp với nhu cầu
 
+automatic_scaling:
+  min_idle_instances: automatic
+  max_idle_instances: automatic
+  
 env_variables:
   NODE_ENV: 'production'
+
+# [Tùy chọn] Cấu hình liveness và readiness checks nếu cần
+liveness_check:
+  path: "/liveness_check"
+  failure_threshold: 2
+  success_threshold: 1
+  timeout_sec: 4
+  check_interval_sec: 30
+  initial_delay_sec: 300
+
+readiness_check:
+  path: "/readiness_check"
+  failure_threshold: 2
+  success_threshold: 1
+  timeout_sec: 4
+  check_interval_sec: 5
